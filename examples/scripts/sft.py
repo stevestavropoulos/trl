@@ -101,7 +101,8 @@ if __name__ == "__main__":
     ################
     # Dataset
     ################
-    dataset = load_dataset(args.dataset_name)
+    #dataset = load_dataset(args.dataset_name)
+    dataset = load_dataset("json", data_files={"train": os.environ["SM_CHANNEL_TRAIN"]})
 
     # Confirm splits
     print("Dataset splits:", dataset.keys())
