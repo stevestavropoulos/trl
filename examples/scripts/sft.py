@@ -67,7 +67,7 @@ from trl import (
 import os
 from huggingface_hub import login
 
-hf_token = os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_HUB_TOKEN")
+hf_token = os.getenv("HF_TOKEN")
 if hf_token:
     print("[INFO] Logging in to Hugging Face...")
     login(token=hf_token)
