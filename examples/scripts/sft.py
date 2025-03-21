@@ -113,6 +113,7 @@ if __name__ == "__main__":
         eval_dataset=dataset[args.dataset_test_split],
         tokenizer=tokenizer,
         peft_config=get_peft_config(model_config),
+        use_chat_format=True,
     )
 
     trainer.train()
