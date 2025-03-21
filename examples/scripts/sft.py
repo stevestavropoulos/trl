@@ -63,6 +63,16 @@ from trl import (
     get_kbit_device_map,
 )
 
+# Login to Hugging Face
+import os
+from huggingface_hub import login
+
+if hf_token:
+    print("[INFO] Logging in to Hugging Face...")
+    login(token=os.getenv("HF_TOKEN"))
+else:
+    raise ValueError("[ERROR] Hugging Face token not found! Ensure it's passed to SageMaker.")
+
 
 if __name__ == "__main__":
     parser = TrlParser((SFTScriptArguments, SFTConfig, ModelConfig))
