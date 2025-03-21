@@ -47,6 +47,18 @@ python examples/scripts/sft.py \
     --lora_alpha=16
 """
 
+# Login to Hugging Face
+import os
+from huggingface_hub import login
+
+hf_token = os.getenv("HF_TOKEN")
+if hf_token:
+    print("[INFO] Logging in to Hugging Face...")
+    login(token=hf_token)
+else:
+    raise ValueError("[ERROR] Hugging Face token not found! Ensure it's passed to SageMaker.")
+
+
 from trl.commands.cli_utils import SFTScriptArguments, TrlParser
 
 
@@ -62,18 +74,6 @@ from trl import (
     get_quantization_config,
     get_kbit_device_map,
 )
-
-# Login to Hugging Face
-import os
-from huggingface_hub import login
-
-hf_token = os.getenv("HF_TOKEN")
-if hf_token:
-    print("[INFO] Logging in to Hugging Face...")
-    login(token=hf_token)
-else:
-    raise ValueError("[ERROR] Hugging Face token not found! Ensure it's passed to SageMaker.")
-
 
 if __name__ == "__main__":
     parser = TrlParser((SFTScriptArguments, SFTConfig, ModelConfig))
@@ -113,7 +113,6 @@ if __name__ == "__main__":
         eval_dataset=dataset[args.dataset_test_split],
         tokenizer=tokenizer,
         peft_config=get_peft_config(model_config),
-        use_chat_format=True,
     )
 
     trainer.train()
