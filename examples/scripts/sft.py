@@ -119,9 +119,10 @@ if __name__ == "__main__":
         model=model_config.model_name_or_path,
         args=training_args,
         train_dataset=dataset[args.dataset_train_split],
-        eval_dataset=dataset[args.dataset_test_split],
+        eval_dataset=None,
         tokenizer=tokenizer,
         peft_config=get_peft_config(model_config),
+        #eval_dataset=dataset[args.dataset_test_split],
     )
 
     trainer.train()
