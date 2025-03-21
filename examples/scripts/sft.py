@@ -103,6 +103,9 @@ if __name__ == "__main__":
     ################
     dataset = load_dataset(args.dataset_name)
 
+    print("Dataset columns:", dataset.column_names)
+    print("First sample from dataset:", dataset[0])
+
     ################
     # Training
     ################
