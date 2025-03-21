@@ -103,8 +103,12 @@ if __name__ == "__main__":
     ################
     dataset = load_dataset(args.dataset_name)
 
-    print("Dataset columns:", dataset.column_names)
-    print("First sample from dataset:", dataset[0])
+    # Confirm splits
+    print("Dataset splits:", dataset.keys())
+
+    # Inspect first sample of the training split
+    print("Dataset columns in train split:", dataset["train"].column_names)
+    print("First sample from dataset train split:", dataset["train"][0])
 
     ################
     # Training
