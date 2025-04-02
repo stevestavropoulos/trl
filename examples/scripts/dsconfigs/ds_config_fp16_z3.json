@@ -1,9 +1,9 @@
 {
-  "train_micro_batch_size_per_gpu": "auto",
+  "train_micro_batch_size_per_gpu": "1",
   "zero_optimization": {
     "stage": 3
   },
-  "fp16": {
+  "bf16": {
     "enabled": true
   }
 }
