@@ -585,7 +585,7 @@ class ConstantLengthDataset(IterableDataset):
         num_of_sequences=1024,
         chars_per_token=3.6,
         eos_token_id=0,
-        shuffle=True,
+        shuffle=False,
         append_concat_token=True,
         add_special_tokens=True,
     ):
