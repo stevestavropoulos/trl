@@ -47,6 +47,11 @@ python examples/scripts/sft.py \
     --lora_alpha=16
 """
 
+# Sagemaker SMPv2
+# https://docs.aws.amazon.com/sagemaker/latest/dg/model-parallel-use-api-v2.html
+import torch.sagemaker as tsm
+tsm.init()
+
 # Login to Hugging Face
 import os
 from huggingface_hub import login
