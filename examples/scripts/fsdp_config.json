@@ -1,8 +1,7 @@
 {
   "fsdp_offload_params": false,
-  "fsdp_backward_prefetch": "backward_pre",
-  "fsdp_forward_prefetch": true,
-  "fsdp_use_orig_params": false,
-  "fsdp_auto_wrap_policy": "TRANSFORMER_BASED_WRAP",
-  "fsdp_activation_checkpointing": true
+  "backward_prefetch": "backward_pre",
+  "forward_prefetch": true,
+  "use_orig_params": false,
+  "activation_checkpointing": true
 }
