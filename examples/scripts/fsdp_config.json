@@ -3,5 +3,6 @@
   "backward_prefetch": "backward_pre",
   "forward_prefetch": true,
   "use_orig_params": false,
-  "activation_checkpointing": false
+  "activation_checkpointing": true,
+  "fsdp_auto_wrap_policy": "TRANSFORMER_BASED_WRAP"
 }
