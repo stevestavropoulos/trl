@@ -4,5 +4,5 @@
   "forward_prefetch": true,
   "use_orig_params": false,
   "activation_checkpointing": true,
-  "fsdp_auto_wrap_policy": "TRANSFORMER_BASED_WRAP"
+  "transformer_layer_cls_to_wrap": "LlamaDecoderLayer"
 }
