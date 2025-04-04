@@ -58,21 +58,6 @@ if hf_token:
 else:
     raise ValueError("[ERROR] Hugging Face token not found! Ensure it's passed to SageMaker.")
 
-import sys
-import json
-
-# Preprocess the command-line arguments to fix the double-encoded fsdp_config.
-# SageMaker is passing in a double JSON encoded value, so we decode one layer here.
-for i, arg in enumerate(sys.argv):
-    if arg.startswith("--fsdp_config="):
-        key, sep, value = arg.partition("=")
-        try:
-            # Remove one level of JSON encoding so that later json.loads() works correctly.
-            fixed_value = json.loads(value)
-            sys.argv[i] = f"{key}={fixed_value}"
-        except Exception as e:
-            print(f"Error processing fsdp_config argument: {e}", file=sys.stderr)
-            sys.exit(1)
 
 from trl.commands.cli_utils import SFTScriptArguments, TrlParser
 
