@@ -58,6 +58,24 @@ if hf_token:
 else:
     raise ValueError("[ERROR] Hugging Face token not found! Ensure it's passed to SageMaker.")
 
+import sys
+import json
+
+# Preprocess sys.argv so that --fsdp_config is unwrapped by one JSON level.
+# This assumes you passed fsdp_config as: json.dumps(json.dumps(fsdp_config))
+for i, arg in enumerate(sys.argv):
+    if arg.startswith("--fsdp_config="):
+        key, sep, value = arg.partition("=")
+        try:
+            # Remove one level of JSON encoding.
+            # That is, decode the outer JSON string to get the inner string.
+            inner = json.loads(value)
+            # Now reassign the argument so that later json.loads() (in training_args.__post_init__)
+            # sees a properly formatted JSON string.
+            sys.argv[i] = f"{key}={inner}"
+        except Exception as e:
+            print(f"Error processing fsdp_config argument: {e}", file=sys.stderr)
+            sys.exit(1)
 
 from trl.commands.cli_utils import SFTScriptArguments, TrlParser
 
