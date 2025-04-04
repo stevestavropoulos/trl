@@ -3,5 +3,5 @@
   "backward_prefetch": "backward_pre",
   "forward_prefetch": true,
   "use_orig_params": false,
-  "activation_checkpointing": true
+  "activation_checkpointing": false
 }
