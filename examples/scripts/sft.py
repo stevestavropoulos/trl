@@ -113,8 +113,18 @@ if __name__ == "__main__":
     print("First sample from dataset train split:", dataset["train"][0])
 
     from trl import apply_chat_template
-    formatted = print(apply_chat_template(dataset["train"][0], tokenizer))
-    print(formatted["text"])
+    print(apply_chat_template(dataset["train"][0], tokenizer))
+    print(tokenizer.eos_token)        # Should print <|eot_id|>
+    print(tokenizer.eos_token_id)     # Should print id of <|eot_id|>
+    print(tokenizer.convert_tokens_to_ids("<|eot_id|>"))  # Should print same id
+
+    from trl import DataCollatorForCompletionOnlyLM
+    collator = DataCollatorForCompletionOnlyLM(
+            tokenizer=tokenizer,
+            instruction_template="<|start_header_id|>user<|end_header_id|>\n\n",
+            response_template="<|start_header_id|>assistant<|end_header_id|>\n\n",
+            pad_token_id=tokenizer.pad_token_id
+    )
 
     ################
     # Training
