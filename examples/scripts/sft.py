@@ -122,8 +122,7 @@ if __name__ == "__main__":
     collator = DataCollatorForCompletionOnlyLM(
             tokenizer=tokenizer,
             instruction_template="<|start_header_id|>user<|end_header_id|>\n\n",
-            response_template="<|start_header_id|>assistant<|end_header_id|>\n\n",
-            pad_token_id=tokenizer.pad_token_id
+            response_template="<|start_header_id|>assistant<|end_header_id|>\n\n"
     )
 
     ################
