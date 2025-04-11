@@ -113,7 +113,7 @@ if __name__ == "__main__":
     print("First sample from dataset train split:", dataset["train"][0])
 
     from trl import apply_chat_template
-    apply_chat_template(dataset["train"][0], tokenizer)
+    print(apply_chat_template(dataset["train"][0], tokenizer))
 
     ################
     # Training
