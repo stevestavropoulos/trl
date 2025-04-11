@@ -279,8 +279,7 @@ class SFTTrainer(Trainer):
             if getattr(tokenizer, "pad_token", None) is None:
                 tokenizer.pad_token = tokenizer.eos_token
 
-        # Add pad token always
-        tokenizer.add_special_tokens({'pad_token': '<|pad|>'})
+        # Resize to account for extra added tokens
         model.resize_token_embeddings(len(tokenizer))
 
         if max_seq_length is not None:
