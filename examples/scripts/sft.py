@@ -96,6 +96,10 @@ if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained(
         model_config.model_name_or_path, trust_remote_code=model_config.trust_remote_code, use_fast=True
     )
+    # We patched SFTTrainer to create a new padding token in the tokenizer if
+    # none is set.
+    # pad_token should NOT be equal to eos_token, otherwise the model will not
+    # know when it's turn is stopped
     #tokenizer.pad_token = tokenizer.eos_token
 
     ################
@@ -135,6 +139,7 @@ if __name__ == "__main__":
         eval_dataset=None,
         tokenizer=tokenizer,
         peft_config=get_peft_config(model_config),
+        data_collator=collator,
         #eval_dataset=dataset[args.dataset_test_split],
     )
 
