@@ -111,6 +111,8 @@ if __name__ == "__main__":
     # Inspect first sample of the training split
     print("Dataset columns in train split:", dataset["train"].column_names)
     print("First sample from dataset train split:", dataset["train"][0])
+
+    from trl import apply_chat_template
     apply_chat_template(dataset["train"][0], tokenizer)
 
     ################
