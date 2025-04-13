@@ -144,5 +144,6 @@ if __name__ == "__main__":
     )
 
     trainer.train()
+    trainer.model.to(torch.bfloat16)
     print("Model dtype: ", next(trainer.model.parameters()).dtype)
     trainer.save_model(training_args.output_dir)
