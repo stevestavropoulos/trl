@@ -190,6 +190,7 @@ class SFTTrainer(Trainer):
                 model = AutoLigerKernelForCausalLM.from_pretrained(model, **model_init_kwargs)
             else:
                 model = AutoModelForCausalLM.from_pretrained(model, **model_init_kwargs)
+            model.to(torch.bfloat16)
 
         if packing:
             warnings.warn(
