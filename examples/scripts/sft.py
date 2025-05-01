@@ -64,6 +64,8 @@ from trl.commands.cli_utils import SFTScriptArguments, TrlParser
 
 from datasets import load_dataset
 
+import torch
+
 from transformers import AutoTokenizer
 
 from trl import (
