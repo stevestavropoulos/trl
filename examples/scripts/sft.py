@@ -149,6 +149,8 @@ if __name__ == "__main__":
 
     print("Model dtype: ", next(trainer.model.parameters()).dtype)
 
+    trainer.save_model(training_args.output_dir)
+    """
     # Directly save the model with the right torch_dtype
     output_dir = training_args.output_dir
     from transformers.modeling_utils import unwrap_model
@@ -156,4 +158,4 @@ if __name__ == "__main__":
     unwrapped_model.save_pretrained(output_dir, torch_dtype=getattr(torch, model_config.torch_dtype), safe_serialization=True)
     trainer.tokenizer.save_pretrained(output_dir)
     torch.save(trainer.args, os.path.join(output_dir, "training_args.bin"))
-    #trainer.save_model(training_args.output_dir)
+    """

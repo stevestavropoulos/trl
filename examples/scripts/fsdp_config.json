@@ -5,6 +5,7 @@
   "use_orig_params": false,
   "activation_checkpointing": false,
   "transformer_layer_cls_to_wrap": "LlamaDecoderLayer",
+  "state_dict_type": "FULL_STATE_DICT",
   "mixed_precision": {
     "param_dtype": "bfloat16",
     "reduce_dtype": "bfloat16",
