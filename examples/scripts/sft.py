@@ -146,6 +146,10 @@ if __name__ == "__main__":
     )
 
     trainer.train()
+
+    from peft import PeftModel
+    if isinstance(trainer.model, PeftModel):
+        print("🚨 PEFT wrapper detected")
     print("Model dtype: ", next(trainer.model.parameters()).dtype)
 
     # Directly save the model with the right torch_dtype
