@@ -140,21 +140,20 @@ if __name__ == "__main__":
         train_dataset=dataset[args.dataset_train_split],
         eval_dataset=None,
         tokenizer=tokenizer,
-        #peft_config=get_peft_config(model_config),
+        peft_config=get_peft_config(model_config),
         data_collator=collator,
         #eval_dataset=dataset[args.dataset_test_split],
     )
 
     trainer.train()
 
-    from peft import PeftModel
-    if isinstance(trainer.model, PeftModel):
-        print("🚨 PEFT wrapper detected")
     print("Model dtype: ", next(trainer.model.parameters()).dtype)
 
     # Directly save the model with the right torch_dtype
     output_dir = training_args.output_dir
-    trainer.model.save_pretrained(output_dir, torch_dtype=getattr(torch, model_config.torch_dtype), safe_serialization=True)
+    from transformers.modeling_utils import unwrap_model
+    unwrapped_model = unwrap_model(trainer.model)
+    unwrapped_model.save_pretrained(output_dir, torch_dtype=getattr(torch, model_config.torch_dtype), safe_serialization=True)
     trainer.tokenizer.save_pretrained(output_dir)
     torch.save(trainer.args, os.path.join(output_dir, "training_args.bin"))
     #trainer.save_model(training_args.output_dir)
