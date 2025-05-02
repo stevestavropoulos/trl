@@ -140,7 +140,7 @@ if __name__ == "__main__":
         train_dataset=dataset[args.dataset_train_split],
         eval_dataset=None,
         tokenizer=tokenizer,
-        peft_config=get_peft_config(model_config),
+        #peft_config=get_peft_config(model_config),
         data_collator=collator,
         #eval_dataset=dataset[args.dataset_test_split],
     )
