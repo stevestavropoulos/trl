@@ -64,8 +64,6 @@ from trl.commands.cli_utils import SFTScriptArguments, TrlParser
 
 from datasets import load_dataset
 
-import torch
-
 from transformers import AutoTokenizer
 
 from trl import (
@@ -153,6 +151,7 @@ if __name__ == "__main__":
     """
     # Directly save the model with the right torch_dtype
     output_dir = training_args.output_dir
+    import torch
     from transformers.modeling_utils import unwrap_model
     unwrapped_model = unwrap_model(trainer.model)
     unwrapped_model.save_pretrained(output_dir, torch_dtype=getattr(torch, model_config.torch_dtype), safe_serialization=True)
