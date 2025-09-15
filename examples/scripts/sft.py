@@ -47,6 +47,7 @@ python examples/scripts/sft.py \
     --lora_alpha=16
 """
 
+"""
 # Login to Hugging Face
 import os
 from huggingface_hub import login
@@ -57,7 +58,7 @@ if hf_token:
     login(token=hf_token)
 else:
     raise ValueError("[ERROR] Hugging Face token not found! Ensure it's passed to SageMaker.")
-
+"""
 
 from trl.commands.cli_utils import SFTScriptArguments, TrlParser
 
