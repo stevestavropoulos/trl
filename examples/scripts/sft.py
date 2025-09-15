@@ -60,7 +60,10 @@ else:
     raise ValueError("[ERROR] Hugging Face token not found! Ensure it's passed to SageMaker.")
 """
 
-from trl.commands.cli_utils import SFTScriptArguments, TrlParser
+# Old trl:
+#from trl.commands.cli_utils import SFTScriptArguments, TrlParser
+from trl.scripts.utils import SFTScriptArguments, TrlParser
+
 
 
 from datasets import load_dataset
