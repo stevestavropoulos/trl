@@ -66,6 +66,17 @@ from trl import (
     get_quantization_config,
 )
 
+# Login to Hugging Face
+import os
+from huggingface_hub import login
+
+hf_token = os.getenv("HF_TOKEN")
+if hf_token:
+    print("[INFO] Logging in to Hugging Face...")
+    login(token=hf_token)
+else:
+    raise ValueError("[ERROR] Hugging Face token not found! Ensure it's passed 
+to SageMaker.")
 
 def main(script_args, training_args, model_args):
     ################
@@ -99,10 +110,25 @@ def main(script_args, training_args, model_args):
         model_args.model_name_or_path, trust_remote_code=model_args.trust_remote_code, use_fast=True
     )
 
+    tokenizer.add_special_tokens({'pad_token': '<|pad|>'})
+
     ################
     # Dataset
     ################
-    dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config)
+    #dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config)
+    dataset = load_dataset("json", data_files={"train": os.path.join(os.environ["SM_CHANNEL_TRAIN"], "*.jsonl")})
+
+    # Apply chat template
+    from trl import apply_chat_template
+    print(apply_chat_template(dataset["train"][0], tokenizer))
+
+    from trl import DataCollatorForCompletionOnlyLM
+    collator = DataCollatorForCompletionOnlyLM(
+            tokenizer=tokenizer,
+            instruction_template="<|start_header_id|>user<|end_header_id|>\n\n",
+            response_template="<|start_header_id|>assistant<|end_header_id|>\n\n"
+    )
+
 
     ################
     # Training
@@ -114,9 +140,12 @@ def main(script_args, training_args, model_args):
         eval_dataset=dataset[script_args.dataset_test_split] if training_args.eval_strategy != "no" else None,
         processing_class=tokenizer,
         peft_config=get_peft_config(model_args),
+        data_collator=collator,
     )
 
     trainer.train()
+
+    print("Model dtype: ", next(trainer.model.parameters()).dtype)
 
     # Save and push to hub
     trainer.save_model(training_args.output_dir)
