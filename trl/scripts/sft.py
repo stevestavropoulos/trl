@@ -75,8 +75,7 @@ if hf_token:
     print("[INFO] Logging in to Hugging Face...")
     login(token=hf_token)
 else:
-    raise ValueError("[ERROR] Hugging Face token not found! Ensure it's passed 
-to SageMaker.")
+    raise ValueError("[ERROR] Hugging Face token not found! Ensure it's passed to SageMaker.")
 
 def main(script_args, training_args, model_args):
     ################
