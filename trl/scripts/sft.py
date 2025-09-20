@@ -73,7 +73,8 @@ from huggingface_hub import login
 hf_token = os.getenv("HF_TOKEN")
 if hf_token:
     print("[INFO] Logging in to Hugging Face...")
-    login(token=hf_token)
+    login()
+    #login(token=hf_token)
 else:
     raise ValueError("[ERROR] Hugging Face token not found! Ensure it's passed to SageMaker.")
 
